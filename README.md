@@ -3,7 +3,9 @@
 **Big content from small seeds. Deterministic, reproducible, and offline.**
 
 
-The origin of this idea started with the 'Infinite Map Concept' I created in early 2025. The core logic starts with the idea of using a static length array of numbers which has values that change based on a mathematic function. Data is mapped that can be used based on the state of the morphed array. The single number array is all that is needed to produce a continuing chain of useful output.
+The origin of this idea started with the 'Infinite Map Concept' I created in early 2025. The core logic starts with the idea of using a single, static length array of numbers which has values that change based on a mathematic function. Data is mapped that can be used based on the state of the morphed array. The initial array is all that is needed to produce a continuing chain of useful output.
+
+Datasets can be incrementally built as the array morphs. This can work toward a desired result, or new sets of data can be continually created for as long as its needed. 
 
 This idea was improved upon with some help from ChatGPT, and has become the Morphic Semantic Engine.
 
