@@ -35,47 +35,6 @@ This repository contains a reference implementation in Python, example scripts, 
 
 ---
 
-## Quick Start
-
-### Installation
-
-Clone this repository:
-
-```bash
-git clone https://github.com/your-username/morphic-semantic-engine.git
-cd morphic-semantic-engine
-pip install -r requirements.txt
-```
-
-(Optionally, you can later publish this as a package and do `pip install morphic-semantic-engine`.)
-
----
-
-## Basic Example
-
-```python
-from mse.core import MorphicSemanticEngine
-
-# Small numeric seed
-seed = [12, 7, 4, 19, 3, 11, 5, 8, 2]
-
-# Minimal vocabulary (these tokens can mean anything in your app)
-vocab = ["the", "old", "city", "river", "tower", "wall", "market", "gate", "people"]
-
-engine = MorphicSemanticEngine(
-    initial_state=seed,
-    vocab=vocab,
-    constants={"a": 3, "b": 5, "c": 7, "d": 11},
-    mod=9973,
-)
-
-# Generate 20 tokens
-tokens = [engine.next_token() for _ in range(20)]
-print(" ".join(tokens))
-```
-
----
-
 ## How It Works (High-Level)
 
 1. **Seed** – You start with a small fixed-length array of integers (e.g. 9 numbers).
@@ -165,15 +124,7 @@ morphic-semantic-engine/
 
 ---
 
-## Roadmap
 
-- [ ] Publish to PyPI
-- [ ] Add more example vocabularies and token types
-- [ ] Add JS/TypeScript implementation as first-class package
-- [ ] Provide more domain-specific demos (finance, IoT, scheduling)
-- [ ] Optional bindings for other languages
-
----
 
 ## Contributing
 
