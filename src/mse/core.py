@@ -26,12 +26,9 @@ class MorphicSemanticEngine:
             raise ValueError("vocab must be non-empty")
 
         self.mod = mod
-        print("\n\ninitial state")
-        print(initial_state)
-           
-        self.state = [int(x) % mod for x in initial_state]
-        print(self.state)
-        exit()
+
+        self.seed = self.build_seed(initial_state)
+        self.state = [int(x) % mod for x in self.seed]
         self.t = 0  # iteration counter
 
         self.constants = {

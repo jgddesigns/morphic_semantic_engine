@@ -466,6 +466,79 @@ class Fitness:
 
         self.vocab = []
 
+        self.rules = {
+            # --- Exercise ---
+            "completed_walk":                  {"health": +1, "composition": +0, "stress": -1, "strength": +0, "lifestyle": +1},
+            "completed_run":                   {"health": +2, "composition": +1, "stress": -1, "strength": +1, "lifestyle": +1},
+            "completed_strength_workout":      {"health": +1, "composition": +1, "stress": -1, "strength": +3, "lifestyle": +1},
+            "completed_cardio_workout":        {"health": +2, "composition": +1, "stress": -2, "strength": +0, "lifestyle": +1},
+            "completed_yoga_session":          {"health": +1, "composition": +0, "stress": -3, "strength": +0, "lifestyle": +1},
+            "completed_stretching":            {"health": +1, "composition": +0, "stress": -2, "strength": +0, "lifestyle": +1},
+            "completed_hiit":                  {"health": +2, "composition": +2, "stress": -1, "strength": +2, "lifestyle": +1},
+            "completed_cycling":               {"health": +2, "composition": +1, "stress": -1, "strength": +1, "lifestyle": +1},
+            "completed_sports_activity":       {"health": +2, "composition": +1, "stress": -1, "strength": +1, "lifestyle": +2},
+
+            # --- Routine / Daily Movement ---
+            "completed_step_goal":             {"health": +2, "composition": +1, "stress": -1, "strength": +0, "lifestyle": +2},
+            "completed_hard_workout":          {"health": +3, "composition": +2, "stress": -1, "strength": +3, "lifestyle": +1},
+            "completed_light_activity":        {"health": +1, "composition": +0, "stress": -1, "strength": +0, "lifestyle": +1},
+
+            # --- Nutrition ---
+            "ate_healthy_meal":                {"health": +2, "composition": +2, "stress": +0, "strength": +0, "lifestyle": +1},
+            "ate_unhealthy_meal":              {"health": -1, "composition": -2, "stress": +0, "strength": +0, "lifestyle": -1},
+            "tracked_meals":                   {"health": +0, "composition": +1, "stress": +0, "strength": +0, "lifestyle": +1},
+            "drank_water_goal":                {"health": +2, "composition": +0, "stress": -1, "strength": +0, "lifestyle": +1},
+            "overate":                         {"health": -1, "composition": -3, "stress": +1, "strength": +0, "lifestyle": -1},
+            "late_night_eating":               {"health": -1, "composition": -1, "stress": +1, "strength": +0, "lifestyle": -1},
+            "skipped_breakfast":               {"health": -1, "composition": -1, "stress": +0, "strength": +0, "lifestyle": -1},
+            "meal_prep_done":                  {"health": +1, "composition": +2, "stress": -1, "strength": +0, "lifestyle": +2},
+
+            # --- Recovery / Sleep ---
+            "slept_early":                     {"health": +2, "composition": +0, "stress": -2, "strength": +0, "lifestyle": +1},
+            "slept_late":                      {"health": -1, "composition": +0, "stress": +1, "strength": +0, "lifestyle": -1},
+            "good_sleep_quality":              {"health": +3, "composition": +0, "stress": -3, "strength": +0, "lifestyle": +1},
+            "poor_sleep_quality":              {"health": -2, "composition": +0, "stress": +3, "strength": +0, "lifestyle": -1},
+            "took_rest_day":                   {"health": +1, "composition": +0, "stress": -1, "strength": +1, "lifestyle": +1},
+            "ignored_rest_day":                {"health": -1, "composition": +0, "stress": +1, "strength": -2, "lifestyle": -1},
+            "hydrated_before_sleep":           {"health": +1, "composition": +0, "stress": -1, "strength": +0, "lifestyle": +1},
+
+            # --- Mental / Stress ---
+            "meditated":                       {"health": +1, "composition": +0, "stress": -3, "strength": +0, "lifestyle": +1},
+            "journaling_completed":            {"health": +0, "composition": +0, "stress": -2, "strength": +0, "lifestyle": +1},
+            "stressful_day":                   {"health": -1, "composition": +0, "stress": +3, "strength": -1, "lifestyle": -1},
+            "relaxation_exercise":             {"health": +1, "composition": +0, "stress": -2, "strength": +0, "lifestyle": +1},
+            "breathing_exercises":             {"health": +0, "composition": +0, "stress": -2, "strength": +0, "lifestyle": +1},
+            "took_mental_break":               {"health": +0, "composition": +0, "stress": -1, "strength": +0, "lifestyle": +1},
+            "high_stress_event":               {"health": -2, "composition": +0, "stress": +4, "strength": -1, "lifestyle": -2},
+            "low_stress_day":                  {"health": +1, "composition": +0, "stress": -1, "strength": +0, "lifestyle": +1},
+
+            # --- Consistency / Habits ---
+            "completed_daily_goal":            {"health": +1, "composition": +1, "stress": -1, "strength": +1, "lifestyle": +3},
+            "missed_daily_goal":               {"health": -1, "composition": +0, "stress": +1, "strength": -1, "lifestyle": -2},
+            "weekly_consistency_win":          {"health": +2, "composition": +2, "stress": -1, "strength": +1, "lifestyle": +4},
+            "broke_streak":                    {"health": -1, "composition": -1, "stress": +1, "strength": -1, "lifestyle": -3},
+            "streak_extended":                 {"health": +2, "composition": +1, "stress": -1, "strength": +1, "lifestyle": +4},
+            "logged_activity_today":           {"health": +0, "composition": +0, "stress": -1, "strength": +0, "lifestyle": +2},
+            "skipped_logging":                 {"health": +0, "composition": +0, "stress": +1, "strength": +0, "lifestyle": -1},
+
+            # --- Negative / Regression ---
+            "sedentary_day":                   {"health": -2, "composition": -1, "stress": +1, "strength": -2, "lifestyle": -2},
+            "junk_food_day":                   {"health": -2, "composition": -3, "stress": +1, "strength": -1, "lifestyle": -2},
+            "overslept":                       {"health": -1, "composition": +0, "stress": +1, "strength": +0, "lifestyle": -1},
+            "underslept":                      {"health": -2, "composition": +0, "stress": +2, "strength": -1, "lifestyle": -1},
+            "skipped_workout":                 {"health": -1, "composition": -1, "stress": +1, "strength": -2, "lifestyle": -2},
+            "low_energy_day":                  {"health": -1, "composition": +0, "stress": +1, "strength": -1, "lifestyle": -1},
+            "excessive_screen_time":           {"health": +0, "composition": +0, "stress": +2, "strength": +0, "lifestyle": -2},
+
+            # --- Major Milestones ---
+            "lost_weight_milestone":           {"health": +3, "composition": +5, "stress": -1, "strength": +1, "lifestyle": +3},
+            "gained_weight_muscle_milestone":  {"health": +3, "composition": +3, "stress": -1, "strength": +5, "lifestyle": +3},
+            "hit_personal_record":             {"health": +2, "composition": +1, "stress": -1, "strength": +4, "lifestyle": +2},
+            "completed_program_week":          {"health": +2, "composition": +2, "stress": -2, "strength": +2, "lifestyle": +4},
+            "completed_30_day_challenge":      {"health": +4, "composition": +4, "stress": -3, "strength": +4, "lifestyle": +5},
+            "finished_training_block":         {"health": +3, "composition": +2, "stress": -1, "strength": +3, "lifestyle": +4}
+        }
+
 
 
 
@@ -473,16 +546,18 @@ class Fitness:
         if not ratings:
             ratings = self.ratings
         sorted_ratings = dict(sorted(ratings.items(), key=lambda x: x[1], reverse=True)) 
-        while len(self.vocab) < 10:
-            for goal in self.daily_goals.keys():
-                sorted_items = dict(sorted(self.daily_goals[goal]["scores"].items(), key=lambda x: x[1], reverse=True)) 
-                local = list(sorted_items.keys())[:3]
-                compare = list(sorted_ratings)[:3]
-                if local == compare:
-                    print("\n\nmatch")
-                    print(dict(sorted_items).keys())
-                    print(dict(sorted_ratings).keys())
-                    self.vocab.append(self.daily_goals[goal]["goal"])
+
+        for goal in self.daily_goals.keys():
+            sorted_items = dict(sorted(self.daily_goals[goal]["scores"].items(), key=lambda x: x[1], reverse=True)) 
+            local = list(sorted_items.keys())[:3]
+            compare = list(sorted_ratings)[:3]
+            if set(local) == set(compare):
+                print("\n\nmatch")
+                print(dict(sorted_items).keys())
+                print(dict(sorted_ratings).keys())
+                self.vocab.append(self.daily_goals[goal]["goal"])
+        if len(self.vocab) < 5:
+            return False
 
         print("\n\nvocab")
         print(self.vocab)

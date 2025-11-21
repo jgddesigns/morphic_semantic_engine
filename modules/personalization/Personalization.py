@@ -1,36 +1,61 @@
+import os
+import sys
+
+# Find project root (two levels up from this file: modules/personalization/.. /..)
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+SRC_ROOT = os.path.join(PROJECT_ROOT, "src")
+
+if SRC_ROOT not in sys.path:
+    sys.path.insert(0, SRC_ROOT)
+
 from mse.core import MorphicSemanticEngine
+from mse.classes.Modify import Modify
 from selections.Fitness import Fitness
+
 import random
+
+
+
 
 class Personalization:
 
-
-     
     def __init__(self, **kwargs):
         super(Personalization, self).__init__(**kwargs)
 
+
         self.selection = Fitness() #change based on type of selection
-
-
-
+        self.modify = Modify()
+        
         self.answers = ["A", "B", "C", "D"]
         self.questions()
-        # self.signature = self.normalize()
 
+        self.signature = self.normalize()
+        self.vocab = self.selection.get_vocab()
+
+        if self.vocab == False:
+            print("\n\nneeds more mapping rules")
+            print(self.selection.ratings)
+            print(self.selection.vocab)
+            sys.exit()
 
         self.engine = MorphicSemanticEngine(
-            initial_state=self.build_seed(self.normalize()),
-            vocab=self.selection.get_vocab(),
+            initial_state=self.signature,
+            vocab=self.vocab,
             constants={"a": 3, "b": 5, "c": 7, "d": 11},
             mod=9973,
         )
 
-        print("\n\ntokens")
-        print(self.engine.generate_tokens(50))
+        self.original_tokens = self.last_tokens = self.engine.generate_tokens(50)
+
+        self.new_tokens = None
+
+        for i in range(1):
+            self.modify.simulate_action(self.selection)
+
+        self.modify.compare_actions(self.engine, self.original_tokens, self.new_tokens, self.last_tokens)
 
 
 
-    
     def questions(self):
         i = 1 
         while i <= len(self.selection.questions.keys()):
@@ -42,7 +67,6 @@ class Personalization:
             print("\n")
             response = None
             while response not in self.answers:
-                # response = input("Your Answer: ").upper()
                 response = random.choice(self.answers)
             self.add_score(self.selection.questions[i]["choices"][response.upper()]["scores"])
             print("\n")
@@ -69,9 +93,22 @@ class Personalization:
         print("\n\nsignature")
         print(signature)
         return signature 
+    
 
-        
+    # def simulate_action(self, selection):
+    #     action = random.choice(list(self.selection.rules.items()))
+    #     print("\n\ncurrent ratings")    
+    #     print(self.selection.ratings)
+    #     print("\nsimulated action")
+    #     self.last_simulated = action[0]
+    #     print(action[0])
+    #     print("\naction ratings")
+    #     print(action[1])
 
+    #     for rating in list(self.selection.ratings.keys()):
+    #         self.selection.ratings[rating] += action[1][rating]
+    #     print("\nadjusted ratings")    
+    #     print(self.selection.ratings)
 
 
 
